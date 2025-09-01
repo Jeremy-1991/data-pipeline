@@ -1,11 +1,11 @@
 import yaml
 
-def load_params(path: str = "data/params.yaml") -> dict:
+def load_params(path: str = "params.yaml") -> dict:
     """
     Charge les paramètres d'un fichier YAML et les renvoie sous forme de dictionnaire.
 
     Args:
-        path (str): Chemin du fichier params.yaml. Par défaut "data/params.yaml".
+        path (str): Chemin du fichier params.yaml. Par défaut "params.yaml".
 
     Returns:
         dict: Contenu du fichier YAML.
