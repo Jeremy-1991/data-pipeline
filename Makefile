@@ -17,13 +17,13 @@ data/raw_dataset.csv: | data
 data/clean_dataset.csv: data/raw_dataset.csv
 	python -m src.clean_data
 
-data/preprocess_dataset.csv: data/clean_dataset.csv
+data/preprocess_dataset.csv models/preprocessor.pkl: data/clean_dataset.csv | models
 	python -m src.preprocess_data
 
-data/train_dataset.csv data/test_dataset.csv models/model.pkl models/scaler.pkl: data/preprocess_dataset.csv
+data/train_dataset.csv data/test_dataset.csv models/model.pkl: data/preprocess_dataset.csv
 	python -m src.training
 
-evaluations: models/model.pkl models/scaler.pkl data/test_dataset.csv
+evaluations: models/model.pkl data/test_dataset.csv
 	python -m src.evaluate
 
 clean:

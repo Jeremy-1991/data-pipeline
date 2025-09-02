@@ -3,13 +3,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 from src.utils import load_params
-from sklearn.preprocessing import StandardScaler
+from src.preprocess_data import create_preprocessor
+from sklearn.pipeline import Pipeline
 
 def train_model(params: dict):
     # Chemin du dataset prétraité
     preprocess_path = params["data"]["preprocess_dataset_path"]
     model_path = params["model"]["path"]
-    scaler_path = params["scaler"]["path"]
     train_path = params["data"]["train_dataset_path"]
     test_path = params["data"]["test_dataset_path"]
 
@@ -18,7 +18,7 @@ def train_model(params: dict):
 
     # Séparer X et y
     # La colonne cible s'appelle "Exited"
-    X = df.drop(["Exited", "Surname"], axis=1, errors="ignore")
+    X = df.drop("Exited", axis=1, errors="ignore")
     y = df["Exited"]
 
     # Split train/test
@@ -32,17 +32,11 @@ def train_model(params: dict):
     train_df.to_csv(train_path, index=False)
     test_df.to_csv(test_path, index=False)
 
-    # Standardisation
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-
-    # Sauvegarder le scaler pour une utilisation future
-    joblib.dump(scaler, scaler_path)
-    print(f"Scaler sauvegardé dans {scaler_path}")
-
-    # Entraîner le modèle
+    # Définition du modèle
     clf = RandomForestClassifier(n_estimators=300, max_depth=10, random_state=42, class_weight={0:1, 1:3})
-    clf.fit(X_train_scaled, y_train)
+
+    # Entraînement du modèle
+    clf.fit(X_train, y_train)
 
     # Sauvegarder le modèle
     joblib.dump(clf, model_path)

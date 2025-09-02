@@ -10,5 +10,5 @@ data:
     - CustomerId
 model:
   path: models/model.pkl
-scaler:
-  path: models/scaler.pkl
+preprocessor:
+  path: models/preprocessor.pkl

@@ -7,12 +7,17 @@ from src.utils import load_params
 
 # Charger les paramètres (chemins du modèle, scaler, dataset, etc.)
 params = load_params()
-MODEL_PATH = params["model"]["path"]
-SCALER_PATH = params["scaler"]["path"]
+model_path = params["model"]["path"]
+preprocessor_path = params["scaler"]["path"]
 
 # Charger modèle et scaler
-model = joblib.load(MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
+model = joblib.load(model_path)
+preprocessor = joblib.load(preprocessor_path)
+
+app = FastAPI(
+    title="Prédiction de Churn",
+    description="Application de prédiction de Churn <br>Une version par API pour faciliter la réutilisation du modèle",
+)
 
 # Définir le schéma d'entrée pour les données
 class CustomerData(BaseModel):
@@ -27,11 +32,6 @@ class CustomerData(BaseModel):
     HasCrCard: int
     IsActiveMember: int
     EstimatedSalary: float
-
-app = FastAPI(
-    title="Prédiction de Churn",
-    description="Application de prédiction de Churn <br>Une version par API pour faciliter la réutilisation du modèle",
-)
 
 
 # Endpoint de test
