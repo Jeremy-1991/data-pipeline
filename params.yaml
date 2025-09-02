@@ -9,6 +9,6 @@ data:
     - RowNumber
     - CustomerId
 model:
-  path: model.pkl
+  path: models/model.pkl
 scaler:
-  path: scaler.pkl
+  path: models/scaler.pkl
