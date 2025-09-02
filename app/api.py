@@ -8,7 +8,7 @@ from src.utils import load_params
 # Charger les paramètres (chemins du modèle, scaler, dataset, etc.)
 params = load_params()
 model_path = params["model"]["path"]
-preprocessor_path = params["scaler"]["path"]
+preprocessor_path = params["preprocessor"]["path"]
 
 # Charger modèle et scaler
 model = joblib.load(model_path)
