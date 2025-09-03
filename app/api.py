@@ -41,7 +41,7 @@ def root():
 
 # Endpoint de prédiction
 @app.post("/predict", tags=["Predict"])
-def predict(data: CustomerData) -> str:
+async def predict(data: CustomerData) -> str:
     df = pd.DataFrame([data.model_dump()]) # model_dump formatte les données pour pandas
 
     preprocessed_data = preprocessor.transform(df)
