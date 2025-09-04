@@ -1,6 +1,0 @@
-data-pipeline-env/
-data/
-models/
-.gitignore
-.dockerignore
-data.json
